@@ -33,7 +33,7 @@ d3.csv("wine_data.csv").then(function(wineData) {
     // Step 2: Create scale functions
     // ==============================
     var xLinearScale = d3.scaleLinear()
-      .domain([20, d3.max(wineData, d => d.points)])
+      .domain([40, d3.max(wineData, d => d.points)])
       .range([0, width]);
 
     var yLinearScale = d3.scaleLinear()
@@ -61,7 +61,7 @@ d3.csv("wine_data.csv").then(function(wineData) {
     .enter()
     .append("circle")
     .attr("cx", d => xLinearScale(d.points))
-    .attr("cy", d => yLinearScale(d.num_hits))
+    .attr("cy", d => yLinearScale(d.price))
     .attr("r", "15")
     .attr("fill", "pink")
     .attr("opacity", ".5");
@@ -70,9 +70,9 @@ d3.csv("wine_data.csv").then(function(wineData) {
     // ==============================
     var toolTip = d3.tip()
       .attr("class", "tooltip")
-      .offset([80, -60])
+      .offset([100, 50])
       .html(function(d) {
-        return (`${d.title}<br>Points: ${d.points}<br>Price: ${d.price}`);
+        return (`Variety:${d.variety}<br>Points: ${d.points}<br>Price: ${d.price}`);
       });
 
     // Step 7: Create tooltip in the chart
@@ -96,12 +96,12 @@ d3.csv("wine_data.csv").then(function(wineData) {
       .attr("x", 0 - (height / 2))
       .attr("dy", "1em")
       .attr("class", "axisText")
-      .text("Wine Rating Points");
+      .text("Wine Price");
 
     chartGroup.append("text")
       .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
       .attr("class", "axisText")
-      .text("Wine Price");
+      .text("Wine Rating Points");
   }).catch(function(error) {
     console.log(error);
   });
